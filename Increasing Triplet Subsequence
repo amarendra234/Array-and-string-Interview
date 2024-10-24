@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int len=nums.size();
+        vector<int>right_max(len);
+        int maxi=INT_MIN;
+        for(int i=len-1;i>=0;i--){
+            maxi=max(maxi,nums[i]);
+            right_max[i]=maxi;
+        }
+        int left_min=nums[0];
+        for(int i=1;i<len-1;i++){
+            if(nums[i]>left_min and right_max[i+1]>nums[i]){
+                return true;
+            }
+            left_min=min(left_min,nums[i]);
+        }
+        return false;
+    }
+};
