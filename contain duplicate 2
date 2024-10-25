@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool check_dup(vector<int>&nums,int k){
+        unordered_map<int,int>umap;
+        for(int i=0;i<nums.size();i++){
+            if(umap.find(nums[i])!=umap.end()){
+                if(i-umap[nums[i]]<=k){
+                    return true;
+                }
+                
+            }
+            umap[nums[i]]=i;
+        }
+        return false;
+    }
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        return check_dup(nums,k);
+        // unordered_map<int,vector<int>>umap;
+        // for(int i=0;i<nums.size();i++){
+        //     umap[nums[i]].push_back(i);
+        // }
+        // for(auto nbr:umap){
+        //     if(nbr.second.size()>1){
+        //          vector<int>temp=nbr.second;
+        //          for(int i=0;i<temp.size()-1;i++){
+        //               if(temp[i+1]-temp[i]<=k){
+        //                 return true;
+        //               }
+        //          }
+        //     }
+        // }
+        // return false;
+    }
+};
