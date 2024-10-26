@@ -1,0 +1,67 @@
+///////brute force approach
+
+
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        int sum=0;
+        unordered_map<int,int>umap;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            if(sum%k==0){
+                if(i+1>=2){
+                    return true;
+                }
+            }
+            if(umap.find(sum)!=umap.end()){
+                int len=i-umap[sum];
+                if(len>=2){
+                    return true;
+                }
+            }
+            int p=1;
+            while(p*k<=sum){
+               
+                if(umap.find(sum-p*k)!=umap.end()){
+                    int len=i-umap[sum-p*k];
+                    if(len>=2){
+                        return true;
+                    }
+                }
+                 p++;
+            }
+            if(umap.find(sum)==umap.end()){
+                umap[sum]=i;
+            }
+        }
+        return false;
+    }
+};
+
+
+///// optimal approach
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        unordered_map<int,int>umap;
+        int sum=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            if(sum%k==0){
+                if(i+1>=2){
+                    return true;
+                }
+            }
+            if(umap.find(sum%k)!=umap.end()){
+                int len=i-umap[sum%k];
+                if(len>=2){
+                    return true;
+                }
+            }
+            if(umap.find(sum%k)==umap.end()){
+                umap[sum%k]=i;
+            }
+        }
+        return false;
+    }
+};
